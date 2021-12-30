@@ -146,11 +146,12 @@ def delete_game(game_id: int):
     session = current_app.db.session
     game: Game = Game.query.filter_by(game_id=game_id).first()
 
+    if not game:
+        return jsonify({"msg": "Game not found"}), HTTPStatus.NOT_FOUND
+
     creator: User = game.creator
     current_user: User = User.query.filter_by(email=get_jwt_identity()).first()
 
-    if not game:
-        return jsonify({"msg": "Game not found"}), HTTPStatus.NOT_FOUND
     if not current_user.is_adm and creator.email != current_user.email:
         return jsonify({"msg": "Unauthorized"}), HTTPStatus.UNAUTHORIZED
 
