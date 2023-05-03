@@ -14,8 +14,6 @@ from app.exc.key_exeptions import InvalidKeyError
 from app.exc.format_exceptions import InvalidFormatError, InvalidStringSizeError
 from app.exc.already_exists_exceptions import AlreadyExistsError
 
-import ipdb
-
 
 def create_user():
     session = current_app.db.session
